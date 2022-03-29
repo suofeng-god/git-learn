@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //继承
+      function Fa(name, age) {
+        this.name = name;
+        this.age = age;
+        this.money = "10000";
+      }
+      function Son(name, age, study) {
+        Fa.call(this, name, age);
+        this.study = study;
+      }
+      let s1 = new Son("suo", 29, "数学");
+      console.log(s1); // {name: 'suo', age: 29, money: '10000', study: '数学'}
+      // 多了个父类的money属性
+    </script>
+  </body>
+</html>

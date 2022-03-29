@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 原型继承
+      Fa.param = "父类的静态属性";
+      Fa.show = function () {
+        console.log("父类的静态方法");
+      };
+      function Fa(name, age) {
+        let _param = "父类的私有属性";
+        this.name = name;
+        this.age = age;
+        this.money = "10000";
+      }
+      Fa.prototype.job = "父类的原型属性";
+      Fa.prototype.work = function () {
+        console.log("父类的原型方法: working.");
+      };
+      function Son(name, age, sex) {
+        Fa.call(this, name, age);
+        this.sex = sex;
+      }
+      let s1 = new Son("suo", 29, "男");
+      console.log(s1); // {name: 'suo', age: 29, money: '10000', sex: '男'}
+    </script>
+  </body>
+</html>
