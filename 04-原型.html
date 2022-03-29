@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+    
+    原型
+    将公共的属性和方法放在类的原型对象上
+
+    */
+      function Person(name, age, hobby) {
+        this.name = name;
+        this.age = age;
+        this.hobby = hobby;
+      }
+      Person.prototype.type = "人";
+      Person.prototype.show = function () {
+        console.log(this.hobby);
+      };
+      let p1 = new Person("suo", 29, "篮球");
+      let p2 = new Person("feng", 19, "足球");
+      console.log(p1);
+      console.log(p2);
+      console.log(p1.show === p2.show); // true
+      console.log(p1.type === p2.type); // true
+      console.log(p1.type); // 人
+      console.log(p2.type); // 人
+    </script>
+  </body>
+</html>

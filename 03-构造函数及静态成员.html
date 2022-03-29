@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+    构造函数及静态成员
+    
+    */
+      // 静态成员
+      Person.num = 0;
+      Person.showNum = function () {
+        console.log(Person.num);
+      };
+      // 构造函数
+      function Person(name, age, hobby) {
+        // 私有变量
+        Person.num++;
+        let _param = "私有变量";
+        this.name = name;
+        this.age = age;
+        this.hobby = hobby;
+        this.show = function () {
+          console.log(this.hobby);
+          console.log(_param);
+          Person.showNum();
+        };
+      }
+      let p = new Person("suo", 29, "篮球");
+      console.log(p._param); // 拿不到私有变量
+      p.show();
+      let p2 = new Person("feng", 19, "足球");
+      p2.show();
+    </script>
+  </body>
+</html>
