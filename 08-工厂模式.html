@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      工厂模式
+      */
+      // 酒店类
+      class Restaurant {
+        constructor() {
+          // 菜单
+          this.menuData = {};
+        }
+        // 增加菜品
+        addMenu(menu, type, message) {
+          // 检测菜单中是否有该菜品
+          if (this.menuData[menu]) {
+            console.info("已经有这个菜了~");
+            return;
+          }
+          this.menuData[menu] = {
+            type,
+            message,
+          };
+        }
+        // 删除菜品
+        removeMenu(menu) {
+          // 检测菜单中是否有该菜品
+          if (!this.menuData[menu]) {
+            return;
+          }
+          delete this.menuData[menu];
+        }
+        // 制作菜品
+        getMenu(menu) {
+          if (!this.menuData[menu]) {
+            throw new Error("本店暂时没有这个菜品~");
+          }
+          // 解构,从菜单中获取信息创建菜品实例
+          const { type, message } = this.menuData[menu];
+          return new Menu(type, message);
+        }
+      }
+      // 菜品类
+      class Menu {
+        constructor(type, message) {
+          this.type = type;
+          this.message = message;
+        }
+        eat() {
+          console.log(this.type + this.message);
+        }
+      }
+      const restaurant = new Restaurant();
+      restaurant.addMenu("QJRS", "青椒肉丝", "很好吃~");
+      restaurant.addMenu("YXRS", "鱼香肉丝", "味道棒极了~");
+      const dish1 = restaurant.getMenu("QJRS");
+      const dish2 = restaurant.getMenu("YXRS");
+      dish1.eat();
+      dish2.eat();
+      const dish3 = restaurant.getMenu("GBJD");
+    </script>
+  </body>
+</html>
