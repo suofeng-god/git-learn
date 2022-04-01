@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+    抽象工厂模式
+      抽象模式的优点：抽象产品类将产品的结构抽象出来，
+      访问者不需要知道产品的具体实现，只需要面向产品的结构编程即可，从产品的具体实现中解耦；
+
+    抽象模式的缺点：
+      扩展新类簇的产品类比较困难，因为需要创建新的抽象产品类，并且还要修改工厂类，违反开闭原则；
+      带来了系统复杂度，增加了新的类，和新的继承关系；
+    */
+      // 饭店抽象类
+      class AbstractRestaurant {
+        constructor() {
+          if (new.target === AbstractRestaurant) {
+            throw new Error("抽象类不能实例化!");
+          }
+          this.signboard = "饭店";
+        }
+        // 抽象方法: 创建菜
+        createDish() {
+          throw new Error("抽象方法不能调用!");
+        }
+        // 抽象方法: 创建汤
+        createSoup() {
+          throw new Error("抽象方法不能调用!");
+        }
+      }
+
+      // 菜品抽象类
+      class AbstractDish {
+        constructor() {
+          if (new.target === AbstractDish) {
+            throw new Error("抽象类不能实例化!");
+          }
+          this.kind = "菜";
+        }
+        // 抽象方法
+        eat() {
+          throw new Error("抽象方法不能调用!");
+        }
+      }
+      // 抽象汤品类
+      class AbstractSoup {
+        constructor() {
+          if (new.target === AbstractSoup) {
+            throw new Error("抽象类不能实例化!");
+          }
+          this.kind = "汤";
+        }
+        // 抽象方法
+        drink() {
+          throw new Error("抽象方法不能调用!");
+        }
+      }
+
+      // 具体饭店类
+      class Restaurant extends AbstractRestaurant {
+        constructor() {
+          super();
+        }
+        // 重写父类的抽象方法
+        createDish(type) {
+          switch (type) {
+            case "鱼香肉丝":
+              return new YXRS();
+            case "宫保鸡丁":
+              return new GBJD();
+            default:
+              throw new Error("本饭店没有该菜品!");
+          }
+        }
+        // 重写父类的抽象方法
+        createSoup(type) {
+          switch (type) {
+            case "番茄蛋汤":
+              return new FQDT();
+            default:
+              throw new Error("本饭店没有该汤!");
+          }
+        }
+      }
+      // 具体菜品类
+      class YXRS extends AbstractDish {
+        constructor() {
+          super();
+          this.type = "鱼香肉丝";
+        }
+        eat() {
+          console.log(this.kind + "-" + this.type + "真香!");
+        }
+      }
+      class GBJD extends AbstractDish {
+        constructor() {
+          super();
+          this.type = "宫保鸡丁";
+        }
+        eat() {
+          console.log(this.kind + "-" + this.type + "太棒了!");
+        }
+      }
+      // 具体汤品类
+      class FQDT extends AbstractSoup {
+        constructor() {
+          super();
+          this.type = "番茄蛋汤";
+        }
+        drink() {
+          console.log(this.kind + "-" + this.type + "从小喝到大!");
+        }
+      }
+
+      const restaurant = new Restaurant();
+      const dish = restaurant.createDish("鱼香肉丝");
+      dish.eat();
+      const soup = restaurant.createSoup("番茄蛋汤");
+      soup.drink();
+    </script>
+  </body>
+</html>
