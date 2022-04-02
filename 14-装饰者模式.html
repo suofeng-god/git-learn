@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      装饰者模式
+      装饰者模式又叫做装饰器模式,再不改变原对象的基础上,通过对其添加属性或者党发来进行包装拓展,
+      使得原有对象可以动态具有更多的功能.
+      本质的功能室动态组合,即动态的给一个对象添加额外的职责,就增加功能角度来看,使用装饰者模式比使用
+      继承更为灵活.好处是有效的吧对象的核心职责和装饰功能区分开,并且通过动态增删装饰取出目标对象
+      中重复的装饰逻辑.
+      特点:
+      1. 装饰不影响原有的功能,原有功能可以照常使用.
+      2. 装饰可以增加多个, 共同给目标对象添加额外功能.
+      */
+      /* 毛坯房 -- 目标对象 */
+      function OriginHouse() {}
+      OriginHouse.prototype.getDesc = function () {
+        console.log("毛坯房");
+      };
+      /* 搬入家具 - 装饰者 */
+      function Furniture(house) {
+        this.house = house;
+      }
+      Furniture.prototype.getDesc = function () {
+        this.house.getDesc();
+        console.log("搬入家具");
+      };
+      /* 墙壁刷漆 -- 装饰者 */
+      function Painting(house) {
+        this.house = house;
+      }
+      Painting.prototype.getDesc = function () {
+        this.house.getDesc();
+        console.log("墙壁刷漆");
+      };
+
+      let house = new OriginHouse();
+      house = new Furniture(house);
+      console.log(house);
+      house = new Painting(house);
+      console.log(house);
+      house.getDesc();
+    </script>
+  </body>
+</html>
