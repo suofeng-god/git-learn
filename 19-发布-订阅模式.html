@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+    发布-订阅模式
+    发布-订阅模式又叫做 观察者模式
+    */
+
+      // 消息的发布者
+      const adadisPub = {
+        adadisBook: [], // 记录订阅者的本本
+        // 订阅信息
+        subShoe(customer) {
+          // 判断是否已经添加过该用户
+          if (!this.adadisBook.includes(customer)) {
+            this.adadisBook.push(customer);
+          }
+        },
+        // 取消订阅
+        unSubShoe(customer) {
+          if (!this.adadisBook.includes(customer)) return;
+          const idx = this.adadisBook.indexOf(customer);
+          this.adadisBook.splice(idx, 1);
+        },
+        // 通知订阅者
+        notify() {
+          for (const customer of this.adadisBook) {
+            customer.update();
+          }
+        },
+      };
+
+      const customer1 = {
+        name: "one",
+        phoneNumber: "1236456",
+        update() {
+          console.log(this.phoneNumber + ": 去商场看看");
+        },
+      };
+      const customer2 = {
+        name: "two",
+        phoneNumber: "5438756",
+        update() {
+          console.log(this.phoneNumber + ":给弟弟买鞋");
+        },
+      };
+      adadisPub.subShoe(customer1);
+      adadisPub.subShoe(customer1);
+      adadisPub.subShoe(customer2);
+      adadisPub.unSubShoe(customer2);
+      adadisPub.notify();
+    </script>
+  </body>
+</html>
