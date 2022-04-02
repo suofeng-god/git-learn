@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+  桥接模式: 
+  桥接模式又叫做桥梁模式,
+  
+  */
+      /* 洗衣机各个部件 */
+      /* 电机 */
+      function Motor(type) {
+        this.motorType = type + "电机";
+      }
+      Motor.prototype.run = function () {
+        console.log(this.motorType + "开始工作");
+      };
+      /* 滚筒 */
+      function Roller(type) {
+        this.rollerType = type + "滚筒";
+      }
+      Roller.prototype.run = function () {
+        console.log(this.rollerType + "开始工作");
+      };
+      /* 变频器 */
+      function Transducer(type) {
+        this.transducerType = type + "变频器";
+      }
+      Transducer.prototype.run = function () {
+        console.log(this.transducerType + "开始工作");
+      };
+
+      /* 组装洗衣机 */
+      function Washer(motorType, rollerType, transducerType) {
+        this.motor = new Motor(motorType);
+        this.roller = new Roller(rollerType);
+        this.transducer = new Transducer(transducerType);
+      }
+      Washer.prototype.work = function () {
+        this.motor.run();
+        this.roller.run();
+        this.transducer.run();
+      };
+      // 新建洗衣机
+      const washer = new Washer("小功率", "直立", "小功率");
+      washer.work();
+
+      // 传统的创建对象方式就是将不同的洗衣机类创建出来,
+      // 各个部件作为属性或者方法,但是当对象比较多的时候就会创建很多个类
+      // 于是可以将这个不同种类的对象的通用部分抽离出来黄建一个类
+    </script>
+  </body>
+</html>
