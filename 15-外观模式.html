@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+    外观模式
+    外观模式又叫做门面模式,定义一个将子系统的一组接口集成在一起的高层接口，
+    以提供一个一致的外观。外观模式让外界减少与子系统内多个模块的直接交互，
+    从而减少耦合，让外界可以更轻松地使用子系统。本质是封装交互，简化调用。
+
+    在类似场景中，这些例子有以下特点：
+
+      1. 一个统一的外观为复杂的子系统提供一个简单的高层功能接口；
+      2. 原本访问者直接调用子系统内部模块导致的复杂引用关系，现在可以通过只访问这个统一的外观来避免；
+
+      最常用的就是参数重载.
+    */
+      function addEvent(element, type, fn) {
+        if (element.addEventListener) {
+          // 支持 DOM2 级事件处理方法的浏览器
+          element.addEventListener(type, fn, false);
+        } else if (element.attachEvent) {
+          // 不支持 DOM2 级但支持 attachEvent
+          element.attachEvent("on" + type, fn);
+        } else {
+          element["on" + type] = fn; // 都不支持的浏览器
+        }
+      }
+
+      var myInput = document.getElementById("myinput");
+
+      addEvent(myInput, "click", function () {
+        console.log("绑定 click 事件");
+      });
+      // 移除 DOM 上的事件
+      function removeEvent(element, type, fn) {
+        if (element.removeEventListener) {
+          element.removeEventListener(type, fn, false);
+        } else if (element.detachEvent) {
+          element.detachEvent("on" + type, fn);
+        } else {
+          element["on" + type] = null;
+        }
+      }
+
+      // 获取样式
+      function getStyle(obj, styleName) {
+        if (window.getComputedStyle) {
+          var styles = getComputedStyle(obj, null)[styleName];
+        } else {
+          var styles = obj.currentStyle[styleName];
+        }
+        return styles;
+      }
+
+      // 阻止默认事件
+      var preventDefault = function (event) {
+        if (event.preventDefault) {
+          event.preventDefault();
+        } else {
+          // IE 下
+          event.returnValue = false;
+        }
+      };
+
+      // 阻止事件冒泡
+      var cancelBubble = function (event) {
+        if (event.stopPropagation) {
+          event.stopPropagation();
+        } else {
+          // IE 下
+          event.cancelBubble = true;
+        }
+      };
+    </script>
+  </body>
+</html>
